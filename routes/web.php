@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\EnrollmentController;
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Route::get('/enroll', [EnrollmentController::class, 'create'])->name('enroll');
+Route::post('/enroll', [EnrollmentController::class, 'store'])->name('enroll.store');
+
+Route::get('/admin/list', [EnrollmentController::class, 'index'])->name('admin.list');
