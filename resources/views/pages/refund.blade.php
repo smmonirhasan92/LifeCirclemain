@@ -12,7 +12,7 @@
                 <p class="text-sm text-secondary mb-8"><strong>Last Updated:</strong> {{ date('F Y') }}</p>
 
                 <div class="bg-primary/5 border border-primary/20 rounded-2xl p-6 mb-8 text-primary font-medium">
-                    Please note that as a service-based clinical institution, our "return policy" governs the cancellation and refunding of booked appointments and training sessions.
+                    Please note that as a service-based developmental institution, our "return policy" governs the cancellation and refunding of booked appointments and training sessions.
                 </div>
 
                 <h3 class="text-2xl font-bold text-primary mt-8 mb-4">1. Session Cancellations by Client</h3>

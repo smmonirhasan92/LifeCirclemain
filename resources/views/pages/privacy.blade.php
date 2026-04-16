@@ -15,7 +15,7 @@
                 <p>Welcome to Life Circle Regulation. We are committed to protecting your privacy. We collect personal information that you voluntarily provide to us when you express an interest in obtaining information about us or our services, or when you participate in activities on the Website.</p>
                 <p>The personal information we collect may include: Names, Email Addresses, Phone Numbers, and Appointment Details.</p>
 
-                <h3 class="text-2xl font-bold text-primary mt-8 mb-4">2. Medical & Clinical Confidentiality</h3>
+                <h3 class="text-2xl font-bold text-primary mt-8 mb-4">2. Medical & Counseling Confidentiality</h3>
                 <p>As a psychological and developmental counseling institution, confidentiality is our highest priority. All session details, behavioral assessments, and personal discussions are kept strictly confidential in accordance with standard psychological ethics. Information will not be shared with third parties without your explicit written consent, except where required by law.</p>
 
                 <h3 class="text-2xl font-bold text-primary mt-8 mb-4">3. Data Usage</h3>

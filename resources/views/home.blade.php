@@ -14,7 +14,7 @@
                 <span class="block text-3xl md:text-4xl text-secondary font-medium mt-2">Center for Developmental Excellence</span>
             </h1>
             <p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards]">
-                With over 10+ years of clinical expertise, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing the whole child through evidence-based developmental guidance.
+                With 15 years of experience in the Disability Sector and 10 years in the Counseling Sector, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing the whole child through evidence-based developmental guidance.
             </p>
             <div class="flex flex-wrap gap-4 mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
                 <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg whisper-shadow hover:brightness-110 transition-all">Enroll Now (সদস্য হোন)</a>
@@ -31,7 +31,7 @@
             <div class="absolute -bottom-6 -left-6 bg-primary p-6 rounded-2xl whisper-shadow max-w-xs text-white animate-[float_5s_infinite_ease-in-out_1s]">
                 <div class="flex items-center gap-4">
                     <span class="material-symbols-outlined text-secondary-container text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
-                    <p class="text-sm font-medium leading-tight">10+ Years of dedicated experience in developmental guidance.</p>
+                    <p class="text-sm font-medium leading-tight">15 years in the Disability Sector and 10 years in the Counseling Sector.</p>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">fact_check</span>
                 <h3 class="text-xl font-bold text-white mb-2">Developmental Assessment</h3>
-                <p class="text-white/60 text-sm">Comprehensive evaluation and personalized growth roadmaps for every child.</p>
+                <p class="text-white/60 text-sm">Comprehensive evaluation and personalized growth roadmaps for each child.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">psychology_alt</span>
@@ -91,15 +91,15 @@
             </div>
             <div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-container/20 rounded-full -z-0"></div>
             <div class="absolute -bottom-10 -right-10 px-8 py-6 bg-white rounded-3xl whisper-shadow z-20">
-                <div class="text-4xl font-black text-primary">10+</div>
-                <div class="text-sm font-bold text-secondary uppercase tracking-widest">Years of Clinical Lead</div>
+                <div class="text-4xl font-black text-primary">15+</div>
+                <div class="text-sm font-bold text-secondary uppercase tracking-widest">Years of Counseling/Developmental Lead</div>
             </div>
         </div>
         <div class="reveal">
             <span class="text-secondary font-bold tracking-widest uppercase text-sm">Our Mission & Values</span>
             <h2 class="text-4xl font-extrabold mb-8 mt-4 text-primary">Nurturing the Whole Child</h2>
             <div class="space-y-6 text-on-surface-variant leading-relaxed text-lg font-bengali">
-                <p>লাইফ সার্কেল-এ আমরা বিশ্বাস করি যে প্রতিটি মানুষের মধ্যে একটি অনন্য আলো রয়েছে। আমাদের লক্ষ্য হলো ক্লিনিক্যাল দক্ষতা এবং সহানুভূতির মিশ্রণে পরিবারগুলোকে উন্নয়নের পথে বাধাগুলো চিহ্নিত করতে এবং কাটিয়ে উঠতে সাহায্য করা।</p>
+                <p>লাইফ সার্কেল-এ আমরা বিশ্বাস করি যে প্রতিটি মানুষের মধ্যে একটি অনন্য আলো রয়েছে। আমাদের লক্ষ্য হলো কাউন্সেলিং দক্ষতা এবং সহানুভূতির মিশ্রণে পরিবারগুলোকে উন্নয়নের পথে বাধাগুলো চিহ্নিত করতে এবং কাটিয়ে উঠতে সাহায্য করা।</p>
                 <p>আমাদের প্রতিষ্ঠাতা শারমিন মুজাহিদ-এর নেতৃত্বে আমরা নন-মেডিকেল কাউন্সেলিং সেবা প্রদান করি যেখানে কাঠামোগত পরিবর্তন, আচরণগত কৌশল এবং মানসিক স্থিতিস্থাপকতার ওপর গুরুত্ব দেওয়া হয়।</p>
             </div>
             <div class="mt-10 p-8 bg-surface-container-low rounded-3xl border-l-8 border-secondary italic whisper-shadow text-primary font-medium">

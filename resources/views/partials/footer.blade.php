@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <p class="text-white/60 text-sm leading-relaxed max-w-xs">
-                    Empowering children and families through clinical excellence and heart-led developmental guidance. Non-medical counselling service.
+                    Empowering children and families through counseling excellence and heart-led developmental guidance. Non-medical counselling service.
                 </p>
             </div>
             <div>
@@ -48,7 +48,7 @@
         </div>
         <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-white/40 text-xs uppercase tracking-widest">© {{ date('Y') }} Life Circle. All rights reserved.</p>
-            <div class="text-[10px] text-white/30 uppercase tracking-tighter">No medication prescribed • Clinical Counselling Only</div>
+            <div class="text-[10px] text-white/30 uppercase tracking-tighter">No medication prescribed • Counseling support Only</div>
         </div>
     </div>
 </footer>

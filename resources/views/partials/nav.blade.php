@@ -4,7 +4,7 @@
         <img alt="Life Circle Logo" class="h-12 w-12 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ujwCsowv4h4kuMrzOQjnJdTHOaSFmBI-sUnyxT00fWnSF2rpqr3K4KBzzonJ0SZTDEL3sQ0XDruZxBGFK9r_uZIL5M9-oYHWAzCRO_0UQSJi4SPeHwaAtbs2KmuT6P9ocuklLj1gsbQit2T-8jsOyhIXVRLzFO_qcyU2QlGAhxMo-S5KIRCCFxIZu4uO4XfuZ1d2Az5ZTI8Tf0qxylYsQn-56V37iKH5P4RY_mMIIKUh6MgRLh7-KkBFyyRCfV3NouHrBBrhk3jDQ">
         <div class="flex flex-col">
             <span class="text-xl font-extrabold text-primary font-manrope leading-tight uppercase tracking-tight">Life Circle</span>
-            <span class="text-[10px] text-secondary font-bold tracking-tighter uppercase">Therapeutic Services</span>
+            <span class="text-[10px] text-secondary font-bold tracking-tighter uppercase">Counseling Services</span>
         </div>
     </div>
     <div class="hidden md:flex items-center gap-10 font-manrope font-bold tracking-tight">
