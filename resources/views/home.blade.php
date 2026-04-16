@@ -5,20 +5,20 @@
 <section class="relative min-h-[85vh] flex items-center overflow-hidden">
     <div class="container mx-auto px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 relative z-10">
         <div class="animate-[fadeInUp_1s_ease-out_forwards]">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary-container/30 text-secondary font-bold text-sm mb-6">
-                <span class="material-symbols-outlined text-sm">verified</span>
+            <div class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full bg-secondary-container/30 text-secondary font-bold text-[10px] md:text-sm mb-4 md:mb-6">
+                <span class="material-symbols-outlined text-xs md:text-sm">verified</span>
                 Non-Medical Counselling Service
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-primary leading-[1.3] mb-6 tracking-tight font-manrope">
+            <h1 class="text-4xl md:text-7xl font-extrabold text-primary leading-[1.3] mb-6 tracking-tight font-manrope">
                 LIFE CIRCLE
-                <span class="block text-3xl md:text-4xl text-secondary font-medium mt-2">Center for Developmental Excellence</span>
+                <span class="block text-2xl md:text-4xl text-secondary font-medium mt-2">Center for Developmental Excellence</span>
             </h1>
             <p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards]">
                 With 15 years of experience in the Disability Sector and 10 years in the Counseling Sector, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing the whole child through evidence-based developmental guidance.
             </p>
-            <div class="flex flex-wrap gap-4 mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
-                <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg whisper-shadow hover:brightness-110 transition-all">Enroll Now (সদস্য হোন)</a>
-                <a href="{{ route('appointment') }}" class="btn-interact bg-secondary text-white px-8 py-4 rounded-full font-bold text-lg whisper-shadow hover:brightness-110 transition-all">Book Appointment (সেশন বুকিং)</a>
+            <div class="flex flex-wrap gap-4 mb-8 md:mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
+                <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg whisper-shadow hover:brightness-110 transition-all">Enroll Now (সদস্য হোন)</a>
+                <a href="{{ route('appointment') }}" class="btn-interact bg-secondary text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg whisper-shadow hover:brightness-110 transition-all">Book Appointment (সেশন বুকিং)</a>
             </div>
         </div>
         <div class="relative animate-[fadeInRight_1.2s_ease-out_forwards] flex justify-center">
@@ -28,10 +28,10 @@
                     <img alt="Lead Counselor" class="w-full h-full object-cover" src="{{ asset('Sharmin Mujahid1.png') }}">
                 </div>
             </div>
-            <div class="absolute -bottom-6 -left-6 bg-primary p-6 rounded-2xl whisper-shadow max-w-xs text-white animate-[float_5s_infinite_ease-in-out_1s]">
-                <div class="flex items-center gap-4">
-                    <span class="material-symbols-outlined text-secondary-container text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
-                    <p class="text-sm font-medium leading-tight">15 years in the Disability Sector and 10 years in the Counseling Sector.</p>
+            <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary p-4 md:p-6 rounded-2xl whisper-shadow max-w-[240px] md:max-w-xs text-white animate-[float_5s_infinite_ease-in-out_1s]">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <span class="material-symbols-outlined text-secondary-container text-2xl md:text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+                    <p class="text-[10px] md:text-sm font-medium leading-tight text-white/90">15 years in the Disability Sector and 10 years in the Counseling Sector.</p>
                 </div>
             </div>
         </div>
@@ -90,9 +90,9 @@
                 <img alt="Sharmin Mujahid professional" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="{{ asset('Sharmin Mujahid2.png') }}">
             </div>
             <div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-container/20 rounded-full -z-0"></div>
-            <div class="absolute -bottom-10 -right-10 px-8 py-6 bg-white rounded-3xl whisper-shadow z-20">
-                <div class="text-4xl font-black text-primary">15+</div>
-                <div class="text-sm font-bold text-secondary uppercase tracking-widest">Years of Counseling/Developmental Lead</div>
+            <div class="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 px-6 py-4 md:px-8 md:py-6 bg-white rounded-3xl whisper-shadow z-20">
+                <div class="text-2xl md:text-4xl font-black text-primary">15+</div>
+                <div class="text-[10px] md:text-sm font-bold text-secondary uppercase tracking-widest leading-none">Years Service</div>
             </div>
         </div>
         <div class="reveal">

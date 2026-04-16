@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work+Sans:wght@300;400;500;600&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -78,11 +78,31 @@
             font-family: 'Manrope', sans-serif;
         }
 
-        /* Specialized Bengali Typography - Solves the "Jumbled" issue */
-        .font-bengali {
-            font-family: 'Hind Siliguri', sans-serif;
-            line-height: 1.8;
-            letter-spacing: 0.01em;
+        /* Specialized Material Symbols & Responsive Fixes */
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined' !important;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'liga';
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+            }
         }
     </style>
     @stack('styles')
