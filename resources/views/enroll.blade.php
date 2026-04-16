@@ -8,10 +8,10 @@
             <div class="inline-flex px-4 py-1.5 bg-secondary-container text-secondary rounded-full text-sm font-semibold tracking-wide w-fit animate-fade-in-up">
                 ধাপ: শুরু করুন আপনার যাত্রা
             </div>
-            <h1 class="text-5xl md:text-6xl font-extrabold text-on-surface leading-[1.1] -tracking-[0.02em] animate-fade-in-up">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-on-surface leading-[1.3] -tracking-[0.02em] animate-fade-in-up font-bengali">
                 আপনার পরিবারের জন্য <span class="text-primary italic">সঠিক</span> পথ খুঁজে নিন।
             </h1>
-            <p class="text-on-surface-variant leading-relaxed max-w-md animate-fade-in-up">
+            <p class="text-on-surface-variant leading-relaxed max-w-md animate-fade-in-up font-bengali">
                 শারমিন মুজাহিদ ম্যামের সাথে আপনার সেশনের জন্য নিচের ফর্মটি পূরণ করুন। আমরা আপনার তথ্যগুলো গুরুত্বের সাথে বিশ্লেষণ করব।
             </p>
 
@@ -56,11 +56,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="field-container flex flex-col gap-2 form-field-group">
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">পূর্ণ নাম (Full Name)</label>
-                        <input name="full_name" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect" placeholder="যেমন: আব্দুল্লাহ আল মামুন" type="text" required>
+                        <input name="full_name" value="{{ old('full_name') }}" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('full_name') border-red-500 @enderror" placeholder="যেমন: আব্দুল্লাহ আল মামুন" type="text" required>
+                        @error('full_name')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="field-container flex flex-col gap-2 form-field-group">
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">ইমেইল (Email Address)</label>
-                        <input name="email" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect" placeholder="example@mail.com" type="email" required>
+                        <input name="email" value="{{ old('email') }}" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('email') border-red-500 @enderror" placeholder="example@mail.com" type="email" required>
+                        @error('email')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
@@ -68,33 +74,50 @@
                     <div class="field-container flex flex-col gap-2 form-field-group">
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">হোয়াটসঅ্যাপ নম্বর</label>
                         <div class="relative">
-                            <input name="whatsapp" class="w-full bg-surface-container-high border-none rounded-sm pl-12 pr-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect" placeholder="017XXXXXXXX" type="tel" required>
+                            <input name="whatsapp" value="{{ old('whatsapp') }}" class="w-full bg-surface-container-high border-none rounded-sm pl-12 pr-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('whatsapp') border-red-500 @enderror" placeholder="017XXXXXXXX" type="tel" required>
                             <div class="absolute left-4 top-1/2 -translate-y-1/2 text-primary">
                                 <span class="material-symbols-outlined text-lg">call</span>
                             </div>
                         </div>
+                        @error('whatsapp')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="field-container flex flex-col gap-2 form-field-group">
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">সেবার ধরণ (Service Type)</label>
-                        <select name="service_type" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all appearance-none input-focus-effect" required>
+                        <select name="service_type" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all appearance-none input-focus-effect font-bengali @error('service_type') border-red-500 @enderror" required>
                             <option value="">নির্বাচন করুন</option>
-                            <option>Pediatric Consultation</option>
-                            <option>Growth Milestones</option>
-                            <option>Parental Coaching</option>
-                            <option>Nutrition Advocacy</option>
+                            <option value="Parenting Guidance" {{ old('service_type') == 'Parenting Guidance' ? 'selected' : '' }}>Parenting Guidance</option>
+                            <option value="Disability Consultancy" {{ old('service_type') == 'Disability Consultancy' ? 'selected' : '' }}>Disability Consultancy</option>
+                            <option value="Developmental Assessment" {{ old('service_type') == 'Developmental Assessment' ? 'selected' : '' }}>Developmental Assessment</option>
+                            <option value="Child & Adolescent Counselling" {{ old('service_type') == 'Child & Adolescent Counselling' ? 'selected' : '' }}>Child & Adolescent Counselling</option>
+                            <option value="Relationship & Family" {{ old('service_type') == 'Relationship & Family' ? 'selected' : '' }}>Relationship & Family</option>
+                            <option value="Teachers & Parents Training" {{ old('service_type') == 'Teachers & Parents Training' ? 'selected' : '' }}>Teachers & Parents Training</option>
+                            <option value="CBT-Based Counselling" {{ old('service_type') == 'CBT-Based Counselling' ? 'selected' : '' }}>CBT-Based Counselling</option>
+                            <option value="Depression & Anxiety Support" {{ old('service_type') == 'Depression & Anxiety Support' ? 'selected' : '' }}>Depression & Anxiety Support</option>
+                            <option value="Addiction Recovery Support" {{ old('service_type') == 'Addiction Recovery Support' ? 'selected' : '' }}>Addiction Recovery Support</option>
                         </select>
+                        @error('service_type')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror>
                     </div>
                 </div>
 
                 <!-- Transaction ID Field (Requested Upgrade) -->
                 <div class="field-container flex flex-col gap-2 form-field-group">
                     <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">ট্রানজেকশন আইডি (bKash/Nagad Transaction ID)</label>
-                    <input name="transaction_id" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect" placeholder="যেমন: TRN918237" type="text" required>
+                    <input name="transaction_id" value="{{ old('transaction_id') }}" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('transaction_id') border-red-500 @enderror" placeholder="যেমন: TRN918237" type="text" required>
+                    @error('transaction_id')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="field-container flex flex-col gap-2 form-field-group">
                     <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">অতিরিক্ত বার্তা (ঐচ্ছিক)</label>
-                    <textarea name="message" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect" placeholder="আপনার সমস্যা বা লক্ষ্য সম্পর্কে কিছু বলুন..." rows="4"></textarea>
+                    <textarea name="message" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('message') border-red-500 @enderror" placeholder="আপনার সমস্যা বা লক্ষ্য সম্পর্কে কিছু বলুন..." rows="4">{{ old('message') }}</textarea>
+                    @error('message')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex items-start gap-3 py-2 form-field-group">

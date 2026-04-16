@@ -34,27 +34,42 @@ class EnrollmentController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        // Humanized Logic: Save lead to database before redirection
-        $enrollment = Enrollment::create($validated_data);
+        $enrollmentData = $validated_data;
+        $enrollmentData['whatsapp_number'] = $validated_data['whatsapp'];
+        unset($enrollmentData['whatsapp']);
 
-        // Professional WhatsApp Redirection Logic
-        $mam_number = '8801716437859';
-        $message_body = "আসসালামু আলাইকুম শারমিন মুজাহিদ ম্যাম,\n\n" .
-                        "আমি নতুন রিলেশনাল ওয়েলনেস সেশনের জন্য আবেদন করেছি। আমার তথ্যাবলি নিচে দেয়া হলো:\n\n" .
-                        "• নাম: {$enrollment->full_name}\n" .
-                        "• সার্ভিস: {$enrollment->service_type}\n" .
-                        "• ট্রানজেকশন আইডি: {$enrollment->transaction_id}\n" .
-                        "• ফোন: {$enrollment->whatsapp}\n";
-        
-        if ($enrollment->message) {
-            $message_body .= "• বার্তা: {$enrollment->message}\n";
+        // Standardize WhatsApp Number (Add 88 prefix if needed)
+        $wa_number = preg_replace('/[^0-9]/', '', $enrollmentData['whatsapp_number']);
+        if (strlen($wa_number) === 11 && str_starts_with($wa_number, '01')) {
+            $wa_number = '88' . $wa_number;
         }
+        $enrollmentData['whatsapp_number'] = $wa_number;
 
-        $message_body .= "\nদয়া করে আমার সেশনটি নিশ্চিত করুন। ধন্যবাদ।";
+        try {
+            // Humanized Logic: Save lead to database before redirection
+            $enrollment = Enrollment::create($enrollmentData);
 
-        $whatsapp_url = "https://wa.me/{$mam_number}?text=" . urlencode($message_body);
+            // Professional WhatsApp Redirection Logic
+            $mam_number = '8801716437859';
+            $message_body = "আসসালামু আলাইকুম শারমিন মুজাহিদ ম্যাম,\n\n" .
+                            "আমি নতুন রিলেশনাল ওয়েলনেস সেশনের জন্য আবেদন করেছি। আমার তথ্যাবলি নিচে দেয়া হলো:\n\n" .
+                            "• নাম: {$enrollment->full_name}\n" .
+                            "• সার্ভিস: {$enrollment->service_type}\n" .
+                            "• ট্রানজেকশন আইডি: {$enrollment->transaction_id}\n" .
+                            "• ফোন: {$enrollment->whatsapp_number}\n";
+            
+            if ($enrollment->message) {
+                $message_body .= "• বার্তা: {$enrollment->message}\n";
+            }
 
-        return redirect()->away($whatsapp_url);
+            $message_body .= "\nদয়া করে আমার সেশনটি নিশ্চিত করুন। ধন্যবাদ।";
+
+            $whatsapp_url = "https://wa.me/{$mam_number}?text=" . urlencode($message_body);
+
+            return redirect()->away($whatsapp_url);
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['message' => 'দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।']);
+        }
     }
 
     /**
@@ -62,7 +77,32 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::latest()->get();
-        return view('admin.list', compact('enrollments'));
+        $enrollments = Enrollment::latest()->paginate(15);
+        
+        $stats = (object)[
+            'total' => Enrollment::count(),
+            'pending' => Enrollment::where('status', 'pending')->count(),
+            'contacted' => Enrollment::where('status', 'contacted')->count(),
+            'enrolled' => Enrollment::where('status', 'enrolled')->count(),
+            'completed' => Enrollment::where('status', 'completed')->count(),
+        ];
+
+        return view('admin.list', compact('enrollments', 'stats'));
+    }
+
+    /**
+     * Update the status of an enrollment via Admin Panel.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,contacted,enrolled,completed',
+        ]);
+
+        $enrollment = Enrollment::findOrFail($id);
+        $enrollment->status = $request->input('status');
+        $enrollment->save();
+
+        return redirect()->back()->with('success', 'স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে। (Status Updated Successfully!)');
     }
 }

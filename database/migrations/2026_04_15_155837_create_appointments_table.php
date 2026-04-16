@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('enrollments', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
             $table->string('email');
             $table->string('whatsapp_number');
-            $table->string('service_type')->index();
-            $table->enum('category', ['appointment', 'teacher_training'])->default('appointment')->index();
+            $table->string('service_type');
+            $table->string('transaction_id');
+            $table->date('appointment_date');
+            $table->string('appointment_time')->nullable(); // Can be a string or time
             $table->text('message')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->enum('status', ['pending', 'contacted', 'enrolled', 'completed'])->default('pending')->index();
+            $table->enum('status', ['pending', 'confirmed', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enrollments');
+        Schema::dropIfExists('appointments');
     }
 };

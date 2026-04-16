@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work+Sans:wght@300;400;500;600&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet">
@@ -37,7 +37,8 @@
                     "fontFamily": {
                         "headline": ["Manrope"],
                         "body": ["Work Sans"],
-                        "label": ["Work Sans"]
+                        "label": ["Work Sans"],
+                        "bengali": ["Hind Siliguri", "sans-serif"]
                     }
                 },
             },
@@ -75,6 +76,13 @@
 
         h1, h2, h3 {
             font-family: 'Manrope', sans-serif;
+        }
+
+        /* Specialized Bengali Typography - Solves the "Jumbled" issue */
+        .font-bengali {
+            font-family: 'Hind Siliguri', sans-serif;
+            line-height: 1.8;
+            letter-spacing: 0.01em;
         }
     </style>
     @stack('styles')

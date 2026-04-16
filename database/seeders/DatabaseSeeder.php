@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        if (\App\Models\User::count() == 0) {
+            \App\Models\User::create([
+                'name' => 'Admin',
+                'email' => 'admin@lifecircle.com',
+                'password' => bcrypt('password123'),
+            ]);
+        }
     }
 }

@@ -14,20 +14,32 @@
             <p class="text-xs text-outline font-normal">Management View</p>
         </div>
         <div class="flex-1 space-y-1">
-            <a class="flex items-center gap-3 bg-primary/5 text-primary rounded-lg mx-2 px-4 py-3 border-r-4 border-primary" href="#">
-                <span class="material-symbols-outlined">dashboard</span>
-                <span class="font-bold">Dashboard</span>
-            </a>
-            <a class="flex items-center gap-3 text-outline px-4 py-3 mx-2 hover:bg-surface-container-low transition-all" href="#">
+            <a class="flex items-center gap-3 bg-primary/5 text-primary rounded-lg mx-2 px-4 py-3 border-r-4 border-primary" href="{{ route('admin.list') }}">
                 <span class="material-symbols-outlined">group</span>
-                <span>Enrollments</span>
+                <span class="font-bold">Enrollments</span>
             </a>
+            <a class="flex items-center gap-3 text-outline px-4 py-3 mx-2 hover:bg-surface-container-low transition-all" href="{{ route('admin.appointments') }}">
+                <span class="material-symbols-outlined">calendar_month</span>
+                <span>Appointments</span>
+            </a>
+
+            <div class="pt-6">
+                <a class="flex items-center gap-3 text-red-500 px-4 py-3 mx-2 hover:bg-red-50 rounded-lg transition-all cursor-pointer font-bold" onclick="document.getElementById('logout-form').submit();">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>লগআউট (Logout)</span>
+                </a>
+                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+            </div>
         </div>
         <div class="px-4 mt-auto">
             <div class="flex items-center gap-3 px-2 py-4 border-t border-outline-variant/10">
-                <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold">A</div>
+                <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold">
+                    {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                </div>
                 <div>
-                    <p class="text-xs font-bold">Admin User</p>
+                    <p class="text-xs font-bold">{{ auth()->user()->name ?? 'Admin User' }}</p>
                     <p class="text-[10px] text-outline">Super Admin</p>
                 </div>
             </div>
@@ -39,7 +51,7 @@
         <header class="flex justify-between items-end mb-10">
             <div>
                 <h2 class="text-3xl font-extrabold text-primary tracking-tight">সদস্যভুক্তি তালিকা (Enrollments)</h2>
-                <p class="text-on-surface-variant mt-1">রিয়েল-টাইম ডাটাবেস মনিটর করুন।</p>
+                <p class="text-on-surface-variant mt-1">রিয়ে-টাইম ডাটাবেস মনিটর করুন।</p>
             </div>
             <div class="bg-white px-4 py-2 rounded-lg shadow-sm flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">calendar_today</span>
@@ -47,15 +59,34 @@
             </div>
         </header>
 
-        <!-- Stats Grid -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-white p-6 rounded-xl whisper-shadow border border-outline-variant/10">
-                <p class="text-outline text-sm font-medium">মোট সদস্য (Total)</p>
-                <h3 class="text-4xl font-bold mt-1 text-primary">{{ $enrollments->count() ?? 0 }}</h3>
+        @if (session('success'))
+            <div class="mb-6 bg-emerald-100 text-emerald-800 p-4 rounded-lg flex items-center gap-2 animate-fade-in-up">
+                <span class="material-symbols-outlined">check_circle</span>
+                <span class="font-bold text-sm">{{ session('success') }}</span>
             </div>
-            <div class="bg-white p-6 rounded-xl whisper-shadow border border-outline-variant/10">
-                <p class="text-outline text-sm font-medium">পেন্ডিং পেমেন্ট (Pending)</p>
-                <h3 class="text-4xl font-bold mt-1 text-secondary">0</h3>
+        @endif
+
+        <!-- Stats Grid -->
+        <section class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10">
+            <div class="bg-white p-5 rounded-xl whisper-shadow border border-outline-variant/10">
+                <p class="text-outline text-xs font-medium uppercase tracking-wider">মোট (Total)</p>
+                <h3 class="text-3xl font-bold mt-1 text-primary">{{ $stats->total }}</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl whisper-shadow border border-outline-variant/10">
+                <p class="text-outline text-xs font-medium uppercase tracking-wider">পেন্ডিং (Pending)</p>
+                <h3 class="text-3xl font-bold mt-1 text-secondary">{{ $stats->pending }}</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl whisper-shadow border border-outline-variant/10">
+                <p class="text-outline text-xs font-medium uppercase tracking-wider">যোগাযোগ (Contacted)</p>
+                <h3 class="text-3xl font-bold mt-1 text-blue-600">{{ $stats->contacted }}</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl whisper-shadow border border-outline-variant/10">
+                <p class="text-outline text-xs font-medium uppercase tracking-wider">এনরোলড (Enrolled)</p>
+                <h3 class="text-3xl font-bold mt-1 text-emerald-600">{{ $stats->enrolled }}</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl whisper-shadow border border-outline-variant/10">
+                <p class="text-outline text-xs font-medium uppercase tracking-wider">সম্পন্ন (Completed)</p>
+                <h3 class="text-3xl font-bold mt-1 text-gray-800">{{ $stats->completed }}</h3>
             </div>
         </section>
 
@@ -91,13 +122,21 @@
                                 {{ $enrollment->transaction_id }}
                             </td>
                             <td class="px-6 py-5">
-                                <a href="https://wa.me/{{ preg_replace('/\D/', '', $enrollment->whatsapp) }}" target="_blank" class="flex items-center gap-2 px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-bold">
+                                <a href="https://wa.me/{{ preg_replace('/\D/', '', $enrollment->whatsapp_number) }}" target="_blank" class="flex items-center gap-2 px-3 py-1.5 w-max bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700 transition">
                                     <span class="material-symbols-outlined text-sm">chat</span>
                                     WhatsApp
                                 </a>
                             </td>
                             <td class="px-6 py-5">
-                                <span class="text-xs font-bold text-primary capitalize">{{ $enrollment->status }}</span>
+                                <form action="{{ route('admin.status.update', $enrollment->id) }}" method="POST" class="flex items-center gap-2">
+                                    @csrf
+                                    <select name="status" class="bg-surface-container-high text-xs font-bold rounded-md px-2 py-1.5 border-none focus:ring-2 focus:ring-primary cursor-pointer w-max appearance-none" onchange="this.form.submit()">
+                                        <option value="pending" {{ $enrollment->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="contacted" {{ $enrollment->status === 'contacted' ? 'selected' : '' }}>Contacted</option>
+                                        <option value="enrolled" {{ $enrollment->status === 'enrolled' ? 'selected' : '' }}>Enrolled</option>
+                                        <option value="completed" {{ $enrollment->status === 'completed' ? 'selected' : '' }}>Completed</option>
+                                    </select>
+                                </form>
                             </td>
                         </tr>
                         @empty
@@ -107,6 +146,9 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+            <div class="p-4 border-t border-surface-container-high bg-white">
+                {{ $enrollments->links() }}
             </div>
         </section>
     </main>
