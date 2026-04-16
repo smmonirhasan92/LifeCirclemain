@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/lifecirc/lifecircle_prod/
+    - /bin/cp -r * $DEPLOYPATH
