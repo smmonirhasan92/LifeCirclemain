@@ -16,9 +16,9 @@
             <p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards]">
                 With 15 years of experience in the Disability Sector and 10 years in the Counseling Sector, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing the whole child through evidence-based developmental guidance.
             </p>
-            <div class="flex flex-wrap gap-4 mb-8 md:mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
-                <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg whisper-shadow hover:brightness-110 transition-all">Enroll Now (সদস্য হোন)</a>
-                <a href="{{ route('appointment') }}" class="btn-interact bg-secondary text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg whisper-shadow hover:brightness-110 transition-all">Book Appointment (সেশন বুকিং)</a>
+            <div class="flex flex-wrap gap-2 md:gap-4 mb-8 md:mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
+                <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-4 md:px-8 py-2 md:py-4 rounded-full font-bold text-[11px] md:text-lg whisper-shadow hover:brightness-110 transition-all">Enroll <span class="hidden md:inline">Now</span> (সদস্য হোন)</a>
+                <a href="{{ route('appointment') }}" class="btn-interact bg-secondary text-white px-4 md:px-8 py-2 md:py-4 rounded-full font-bold text-[11px] md:text-lg whisper-shadow hover:brightness-110 transition-all">Book <span class="hidden md:inline">Appointment</span> (সেশন বুকিং)</a>
             </div>
         </div>
         <div class="relative animate-[fadeInRight_1.2s_ease-out_forwards] flex justify-center">

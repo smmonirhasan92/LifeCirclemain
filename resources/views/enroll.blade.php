@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="pt-4 flex flex-col gap-6 form-field-group">
-                    <button type="submit" class="group relative bg-primary text-on-primary py-4 px-8 rounded-full text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden" id="submitBtn">
+                    <button type="submit" class="group relative bg-primary text-on-primary py-3 md:py-4 px-6 md:px-8 rounded-full text-base md:text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 overflow-hidden" id="submitBtn">
                         <span class="relative z-10">আপনার সেশন বুক করুন 🚀</span>
                         <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </button>

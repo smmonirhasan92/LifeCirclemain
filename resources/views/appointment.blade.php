@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-secondary text-white py-4 px-8 rounded-full text-lg font-bold shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all duration-300">
+                    <button type="submit" class="w-full bg-secondary text-white py-3 md:py-4 px-6 md:px-8 rounded-full text-base md:text-lg font-bold shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all duration-300">
                         সেশন বুক করুন 🗓️
                     </button>
                 </div>
