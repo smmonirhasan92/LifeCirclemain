@@ -17,5 +17,7 @@ class Appointment extends Model
         'appointment_time',
         'message',
         'status',
+        'payment_amount',
+        'is_paid',
     ];
 }

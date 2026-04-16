@@ -23,6 +23,8 @@ class Enrollment extends Model
         'message',
         'transaction_id',
         'status',
+        'payment_amount',
+        'is_paid',
     ];
     /**
      * Get the teacher profile associated with the enrollment.

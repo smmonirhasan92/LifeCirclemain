@@ -3,24 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AdminAuthController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use App\Http\Controllers\AppointmentController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+// Static Information Pages
+Route::view('/gallery', 'pages.gallery')->name('gallery');
+Route::view('/privacy-policy', 'pages.privacy')->name('privacy');
+Route::view('/terms-and-conditions', 'pages.terms')->name('terms');
+Route::view('/return-policy', 'pages.refund')->name('refund');
+
+// Enrollment Routes
 Route::get('/enroll', [EnrollmentController::class, 'create'])->name('enroll');
 Route::post('/enroll', [EnrollmentController::class, 'store'])->name('enroll.store');
 
@@ -32,11 +27,19 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.authenticate');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware('auth:admin')->group(function () {
         Route::get('/list', [EnrollmentController::class, 'index'])->name('admin.list');
         Route::post('/enrollments/{id}/status', [EnrollmentController::class, 'updateStatus'])->name('admin.status.update');
-
+        
         Route::get('/appointments', [AppointmentController::class, 'index'])->name('admin.appointments');
         Route::post('/appointments/{id}/status', [AppointmentController::class, 'updateStatus'])->name('admin.appointments.update');
+
+        Route::get('/clients', [\App\Http\Controllers\ReportController::class, 'clients'])->name('admin.clients');
+        Route::get('/reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('admin.reports');
+        
+        Route::get('/migrate', function () {
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            return redirect()->back()->with('success', 'Database updated successfully on live server!');
+        })->name('admin.migrate');
     });
 });

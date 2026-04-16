@@ -97,12 +97,21 @@ class EnrollmentController extends Controller
     {
         $request->validate([
             'status' => 'required|in:pending,contacted,enrolled,completed',
+            'payment_amount' => 'nullable|numeric',
         ]);
 
         $enrollment = Enrollment::findOrFail($id);
-        $enrollment->status = $request->input('status');
+        $enrollment->status = $request->status;
+        
+        if ($request->has('payment_amount')) {
+            $enrollment->payment_amount = $request->payment_amount;
+        }
+        
+        // Handle checkbox: if present, it's true, else false.
+        $enrollment->is_paid = $request->has('is_paid') ? true : false;
+        
         $enrollment->save();
 
-        return redirect()->back()->with('success', 'স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে। (Status Updated Successfully!)');
+        return redirect()->back()->with('success', 'Enrollment details updated successfully.');
     }
 }

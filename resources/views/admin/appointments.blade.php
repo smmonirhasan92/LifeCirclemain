@@ -119,14 +119,23 @@
                                 </a>
                             </td>
                             <td class="px-6 py-5">
-                                <form action="{{ route('admin.appointments.update', $appointment->id) }}" method="POST">
+                                <form action="{{ route('admin.appointments.update', $appointment->id) }}" method="POST" class="flex flex-col gap-2 relative">
                                     @csrf
-                                    <select name="status" class="bg-surface-container-high text-xs font-bold rounded-md px-2 py-1.5 border-none cursor-pointer appearance-none" onchange="this.form.submit()">
-                                        <option value="pending" {{ $appointment->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="confirmed" {{ $appointment->status === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                        <option value="completed" {{ $appointment->status === 'completed' ? 'selected' : '' }}>Completed</option>
-                                        <option value="cancelled" {{ $appointment->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                    </select>
+                                    <div class="flex items-center gap-2">
+                                        <select name="status" class="bg-surface-container-high text-[11px] font-bold rounded-md px-2 py-1.5 border-none focus:ring-1 focus:ring-primary w-24">
+                                            <option value="pending" {{ $appointment->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="confirmed" {{ $appointment->status === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                            <option value="completed" {{ $appointment->status === 'completed' ? 'selected' : '' }}>Completed</option>
+                                            <option value="cancelled" {{ $appointment->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                        </select>
+                                        <input type="number" name="payment_amount" value="{{ $appointment->payment_amount }}" placeholder="Amount (৳)" class="bg-surface-container text-[11px] font-bold rounded-md px-2 py-1.5 border-none focus:ring-1 focus:ring-primary w-20" step="0.01">
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center gap-1 text-[10px] font-bold text-outline cursor-pointer hover:text-primary transition-colors">
+                                            <input type="checkbox" name="is_paid" value="1" {{ $appointment->is_paid ? 'checked' : '' }} class="rounded text-primary focus:ring-primary border-outline-variant/30 w-3 h-3"> Paid
+                                        </label>
+                                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white rounded text-[10px] px-2 py-1 font-bold transition-colors">Save</button>
+                                    </div>
                                 </form>
                             </td>
                         </tr>

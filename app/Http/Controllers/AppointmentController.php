@@ -93,12 +93,21 @@ class AppointmentController extends Controller
     {
         $request->validate([
             'status' => 'required|in:pending,confirmed,completed,cancelled',
+            'payment_amount' => 'nullable|numeric',
         ]);
 
         $appointment = Appointment::findOrFail($id);
-        $appointment->status = $request->input('status');
+        $appointment->status = $request->status;
+        
+        if ($request->has('payment_amount')) {
+            $appointment->payment_amount = $request->payment_amount;
+        }
+        
+        // Handle checkbox: if present, it's true, else false.
+        $appointment->is_paid = $request->has('is_paid') ? true : false;
+        
         $appointment->save();
 
-        return redirect()->back()->with('success', 'অ্যাপয়েন্টমেন্ট স্টেটাস আপডেট করা হয়েছে।');
+        return redirect()->back()->with('success', 'Appointment details updated successfully.');
     }
 }
