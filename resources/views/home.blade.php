@@ -57,24 +57,21 @@
         <div class="reveal">
             <span class="text-secondary font-bold tracking-widest uppercase text-sm">Developmental Support Counselor</span>
             <h2 class="text-4xl font-extrabold mb-8 mt-4 text-primary">About Me</h2>
-            <div class="space-y-6 text-on-surface-variant leading-relaxed text-lg font-bengali">
+            <div class="space-y-6 text-on-surface-variant leading-relaxed text-lg">
                 <p>I am a Developmental Support Counselor dedicated to supporting children with developmental challenges and their families. I have practical experience working with children with developmental delays, autism, speech and behavioral difficulties.</p>
-                <p>আমি একজন ডেভেলপমেন্টাল সাপোর্ট কাউন্সেলর, যিনি ডেভেলপমেন্টাল চ্যালেঞ্জযুক্ত শিশু এবং তাদের পরিবারের সাথে কাজ করি। অটিজম, স্পিচ ডিলে, বিহেভিয়ারাল সমস্যা এবং অন্যান্য ডেভেলপমেন্টাল ডিলে থাকা শিশুদের সাথে কাজ করার বাস্তব অভিজ্ঞতা রয়েছে।</p>
                 <p>I focus on providing structured developmental support, parent guidance, and practical strategies that can be applied in daily life. My goal is to help each child reach their fullest potential in a supportive and understanding environment.</p>
-                <p>আমি মূলত শিশুদের উন্নয়নের জন্য স্ট্রাকচার্ড সাপোর্ট, প্যারেন্ট গাইডেন্স এবং দৈনন্দিন জীবনে প্রয়োগযোগ্য বাস্তব কৌশল নিয়ে কাজ করি। আমার লক্ষ্য হলো প্রতিটি শিশুকে তার সর্বোচ্চ সম্ভাবনায় পৌঁছাতে সাহায্য করা।</p>
             </div>
             
             <h3 class="text-2xl font-extrabold mt-10 mb-4 text-primary">My Approach</h3>
-            <div class="space-y-4 text-on-surface-variant leading-relaxed text-md font-bengali">
+            <div class="space-y-4 text-on-surface-variant leading-relaxed text-lg">
                 <p>I follow a child-centered and family-focused approach. Each child is unique, so I create personalized support strategies based on individual needs. I also work closely with parents to ensure consistency between support sessions and home environment.</p>
-                <p>আমি child-centered এবং family-focused পদ্ধতিতে কাজ করি। প্রতিটি শিশু আলাদা, তাই তাদের প্রয়োজন অনুযায়ী আলাদা সাপোর্ট প্ল্যান তৈরি করা হয়। পাশাপাশি আমি প্যারেন্টদের সাথে কাজ করি যাতে বাসা এবং সাপোর্ট সেশন—দুটোর মধ্যে সমন্বয় থাকে।</p>
             </div>
 
             <h3 class="text-2xl font-extrabold mt-10 mb-4 text-primary">Training / Qualification</h3>
-            <ul class="list-disc pl-5 space-y-2 text-on-surface-variant font-bengali">
-                <li>Developmental Disorder Management Certificate (DMC) / ডেভেলপমেন্টাল ডিসঅর্ডার ম্যানেজমেন্ট সার্টিফিকেট (DMC)</li>
-                <li>Training in Child Development & Behavior Support / চাইল্ড ডেভেলপমেন্ট ও বিহেভিয়ার সাপোর্টে প্রশিক্ষণ</li>
-                <li>Practical experience working with children with special needs / বিশেষ চাহিদাসম্পন্ন শিশুদের সাথে কাজের অভিজ্ঞতা</li>
+            <ul class="list-disc pl-5 space-y-2 text-on-surface-variant text-lg">
+                <li>Developmental Disorder Management Certificate (DMC)</li>
+                <li>Training in Child Development & Behavior Support</li>
+                <li>Practical experience working with children with special needs</li>
             </ul>
         </div>
     </div>
