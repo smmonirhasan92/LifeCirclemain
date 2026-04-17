@@ -41,5 +41,13 @@ Route::prefix('admin')->group(function () {
             \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
             return redirect()->back()->with('success', 'Database updated successfully on live server!');
         })->name('admin.migrate');
+
+        Route::get('/clear-cache', function () {
+            \Illuminate\Support\Facades\Artisan::call('view:clear');
+            \Illuminate\Support\Facades\Artisan::call('route:clear');
+            \Illuminate\Support\Facades\Artisan::call('config:clear');
+            \Illuminate\Support\Facades\Artisan::call('cache:clear');
+            return redirect()->back()->with('success', 'আপডেটের পর ক্যাশ সফলভাবে ক্লিয়ার করা হয়েছে! (Cache Cleared)');
+        })->name('admin.clear-cache');
     });
 });

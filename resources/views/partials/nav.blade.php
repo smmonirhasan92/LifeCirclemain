@@ -12,8 +12,8 @@
         <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}#services">Services</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}#contact">Contact</a>
     </div>
-    <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-3 md:px-6 py-1.5 md:py-2.5 rounded-full font-manrope font-bold hover:brightness-110 shadow-lg text-[9px] md:text-base whitespace-nowrap">
-        Book Appointment
+    <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-3 md:px-6 py-1.5 md:py-2.5 rounded-full font-manrope font-bold hover:brightness-110 shadow-lg text-[9px] md:text-base whitespace-nowrap font-bengali">
+        DMC কোর্সে ভর্তি হোন
     </a>
 </nav>
 

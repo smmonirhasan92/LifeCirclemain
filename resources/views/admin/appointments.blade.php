@@ -22,7 +22,12 @@
                 <span class="font-bold">Appointments</span>
             </a>
 
-            <div class="pt-6">
+            <div class="pt-6 space-y-2">
+                <a class="flex items-center gap-3 text-amber-600 px-4 py-3 mx-2 hover:bg-amber-50 rounded-lg transition-all font-bold" href="{{ route('admin.clear-cache') }}">
+                    <span class="material-symbols-outlined">cleaning_services</span>
+                    <span>Clear Visual Cache</span>
+                </a>
+                
                 <a class="flex items-center gap-3 text-red-500 px-4 py-3 mx-2 hover:bg-red-50 rounded-lg transition-all cursor-pointer font-bold" onclick="document.getElementById('logout-form').submit();">
                     <span class="material-symbols-outlined">logout</span>
                     <span>লগআউট (Logout)</span>

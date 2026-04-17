@@ -27,10 +27,6 @@
                             <span class="font-bold">বিকাশ (Personal):</span>
                             <span class="text-primary font-manrope">01716437859</span>
                         </div>
-                        <div class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg">
-                            <span class="font-bold">নগদ (Personal):</span>
-                            <span class="text-primary font-manrope">01716437859</span>
-                        </div>
                     </div>
                     <p class="text-xs italic">*পেমেন্ট করার পর ট্রানজেকশন আইডিটি ফর্মে লিখুন।</p>
                 </div>
@@ -87,25 +83,23 @@
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">সেবার ধরণ (Service Type)</label>
                         <select name="service_type" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all appearance-none input-focus-effect font-bengali @error('service_type') border-red-500 @enderror" required>
                             <option value="">নির্বাচন করুন</option>
-                            <option value="Parenting Guidance" {{ old('service_type') == 'Parenting Guidance' ? 'selected' : '' }}>Parenting Guidance</option>
-                            <option value="Disability Consultancy" {{ old('service_type') == 'Disability Consultancy' ? 'selected' : '' }}>Disability Consultancy</option>
-                            <option value="Developmental Assessment" {{ old('service_type') == 'Developmental Assessment' ? 'selected' : '' }}>Developmental Assessment</option>
-                            <option value="Child & Adolescent Counselling" {{ old('service_type') == 'Child & Adolescent Counselling' ? 'selected' : '' }}>Child & Adolescent Counselling</option>
-                            <option value="Relationship & Family" {{ old('service_type') == 'Relationship & Family' ? 'selected' : '' }}>Relationship & Family</option>
-                            <option value="Teachers & Parents Training" {{ old('service_type') == 'Teachers & Parents Training' ? 'selected' : '' }}>Teachers & Parents Training</option>
-                            <option value="CBT-Based Counselling" {{ old('service_type') == 'CBT-Based Counselling' ? 'selected' : '' }}>CBT-Based Counselling</option>
-                            <option value="Depression & Anxiety Support" {{ old('service_type') == 'Depression & Anxiety Support' ? 'selected' : '' }}>Depression & Anxiety Support</option>
-                            <option value="Addiction Recovery Support" {{ old('service_type') == 'Addiction Recovery Support' ? 'selected' : '' }}>Addiction Recovery Support</option>
+                            <option value="DMC Certificate Course" {{ old('service_type') == 'DMC Certificate Course' ? 'selected' : '' }}>Developmental Disorder Management Certificate (DMC)</option>
+                            <option value="Developmental Screening & Basic Assessment" {{ old('service_type') == 'Developmental Screening & Basic Assessment' ? 'selected' : '' }}>Developmental Screening & Basic Assessment</option>
+                            <option value="Parent Counseling & Guidance" {{ old('service_type') == 'Parent Counseling & Guidance' ? 'selected' : '' }}>Parent Counseling & Guidance</option>
+                            <option value="Behavior Management Support" {{ old('service_type') == 'Behavior Management Support' ? 'selected' : '' }}>Behavior Management Support</option>
+                            <option value="Home-based Training Plans" {{ old('service_type') == 'Home-based Training Plans' ? 'selected' : '' }}>Home-based Training Plans</option>
+                            <option value="Early Intervention Support" {{ old('service_type') == 'Early Intervention Support' ? 'selected' : '' }}>Early Intervention Support</option>
+                            <option value="Individualized Support Plan (ISP)" {{ old('service_type') == 'Individualized Support Plan (ISP)' ? 'selected' : '' }}>Individualized Support Plan (ISP)</option>
                         </select>
                         @error('service_type')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- Transaction ID Field (Requested Upgrade) -->
                 <div class="field-container flex flex-col gap-2 form-field-group">
-                    <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">ট্রানজেকশন আইডি (bKash/Nagad Transaction ID)</label>
+                    <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">ট্রানজেকশন আইডি (bKash Transaction ID)</label>
                     <input name="transaction_id" value="{{ old('transaction_id') }}" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all input-focus-effect @error('transaction_id') border-red-500 @enderror" placeholder="যেমন: TRN918237" type="text" required>
                     @error('transaction_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -124,14 +118,14 @@
                     <div class="flex items-center h-5">
                         <input name="disclaimer" id="disclaimer" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-surface-container-high cursor-pointer transition-transform hover:scale-110" type="checkbox" required>
                     </div>
-                    <label class="text-sm text-on-surface-variant leading-tight cursor-pointer" for="disclaimer">
-                        আমি বুঝতে পারছি এটি সরাসরি চিকিৎসা নয়। লাইফ সার্কেল একটি সাহায্যকারী উন্নয়নমূলক নির্দেশনা প্রদান করে।
+                    <label class="text-sm text-on-surface-variant leading-tight cursor-pointer font-bengali" for="disclaimer">
+                        আমি বুঝতে পারছি এটি সরাসরি ক্লিনিক্যাল চিকিৎসা (Clinical Treatment) নয়। লাইফ সার্কেল একটি সহায়ক উন্নয়নমূলক কাউন্সেলিং ও গাইডেন্স সেবা প্রদান করে।
                     </label>
                 </div>
 
                 <div class="pt-4 flex flex-col gap-6 form-field-group">
                     <button type="submit" class="group relative bg-primary text-on-primary py-3 md:py-4 px-6 md:px-8 rounded-full text-base md:text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 overflow-hidden" id="submitBtn">
-                        <span class="relative z-10">আপনার সেশন বুক করুন 🚀</span>
+                        <span class="relative z-10 font-bengali">আপনার বুকিং নিশ্চিত করুন</span>
                         <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </button>
                     <div class="flex items-center justify-center gap-4 text-sm text-outline">

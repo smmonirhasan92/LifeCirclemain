@@ -8,8 +8,8 @@
             <div class="inline-flex px-4 py-1.5 bg-primary-container text-primary rounded-full text-sm font-semibold tracking-wide w-fit animate-fade-in-up">
                 ধাপ: অ্যাপয়েন্টমেন্ট বুকিং
             </div>
-            <h1 class="text-5xl md:text-6xl font-extrabold text-on-surface leading-[1.3] -tracking-[0.02em] animate-fade-in-up font-bengali">
-                একজন বিশেষজ্ঞের সাথে <span class="text-secondary italic">সেশন</span> বুক করুন।
+            <h1 class="text-4xl md:text-5xl font-extrabold text-on-surface leading-[1.3] -tracking-[0.02em] animate-fade-in-up font-bengali">
+                শারমিন মুজাহিদ ম্যামের সাথে আপনার সেশনের জন্য নিচের ফর্মটি পূরণ করুন।
             </h1>
             <p class="text-on-surface-variant leading-relaxed max-w-md animate-fade-in-up font-bengali">
                 আপনার সুবিধাজনক সময় এবং সেবার ধরণ অনুযায়ী অ্যাপয়েন্টমেন্ট বুক করুন। আমরা আপনার তথ্যাবলি নিরাপদ রাখবো।
@@ -58,11 +58,14 @@
                     </div>
                     <div class="field-container flex flex-col gap-2 form-field-group">
                         <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">সেবার ধরণ (Service)</label>
-                        <select name="service_type" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all appearance-none input-focus-effect @error('service_type') border-red-500 @enderror" required>
+                        <select name="service_type" class="bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all appearance-none input-focus-effect font-bengali @error('service_type') border-red-500 @enderror" required>
                             <option value="">নির্বাচন করুন</option>
-                            <option value="Parenting Guidance" {{ old('service_type') == 'Parenting Guidance' ? 'selected' : '' }}>Parenting Guidance</option>
-                            <option value="Developmental Assessment" {{ old('service_type') == 'Developmental Assessment' ? 'selected' : '' }}>Developmental Assessment</option>
-                            <option value="Relationship & Family" {{ old('service_type') == 'Relationship & Family' ? 'selected' : '' }}>Relationship & Family</option>
+                            <option value="Developmental Screening & Basic Assessment" {{ old('service_type') == 'Developmental Screening & Basic Assessment' ? 'selected' : '' }}>Developmental Screening & Basic Assessment</option>
+                            <option value="Parent Counseling & Guidance" {{ old('service_type') == 'Parent Counseling & Guidance' ? 'selected' : '' }}>Parent Counseling & Guidance</option>
+                            <option value="Behavior Management Support" {{ old('service_type') == 'Behavior Management Support' ? 'selected' : '' }}>Behavior Management Support</option>
+                            <option value="Home-based Training Plans" {{ old('service_type') == 'Home-based Training Plans' ? 'selected' : '' }}>Home-based Training Plans</option>
+                            <option value="Early Intervention Support" {{ old('service_type') == 'Early Intervention Support' ? 'selected' : '' }}>Early Intervention Support</option>
+                            <option value="Individualized Support Plan (ISP)" {{ old('service_type') == 'Individualized Support Plan (ISP)' ? 'selected' : '' }}>Individualized Support Plan (ISP)</option>
                         </select>
                         @error('service_type') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>

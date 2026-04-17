@@ -11,15 +11,15 @@
                     </div>
                 </div>
                 <p class="text-white/60 text-xs md:text-sm leading-relaxed max-w-xs">
-                    Empowering children and families through counseling excellence and heart-led developmental guidance. Non-medical counselling service.
+                    Empowering children and families through counseling excellence and heart-led developmental guidance. Developmental Support Counselor.
                 </p>
             </div>
             <div>
                 <h4 class="text-xs uppercase tracking-[0.2em] font-bold text-white/40 mb-8">Navigation</h4>
-                <ul class="flex flex-col gap-4 text-sm font-medium">
-                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('home') }}#about">Mission & Values</a></li>
-                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('home') }}#services">Services Portfolio</a></li>
-                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('enroll') }}">Book Appointment</a></li>
+                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('home') }}#about">About</a></li>
+                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('home') }}#services">Services</a></li>
+                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('enroll') }}">DMC Course</a></li>
+                    <li><a class="hover:text-secondary-container transition-colors" href="{{ route('appointment') }}">Book Appointment</a></li>
                 </ul>
             </div>
             <div>
