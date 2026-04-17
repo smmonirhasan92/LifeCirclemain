@@ -4,9 +4,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div class="flex flex-col gap-6 md:col-span-1">
                 <div class="flex items-center gap-3">
-                    <div class="bg-white/10 p-2 rounded-full flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white text-xl md:text-2xl" style="font-variation-settings: 'FILL' 1;">eco</span>
-                    </div>
+                    <img alt="Logo" class="h-8 w-8 md:h-10 md:w-10 brightness-0 invert" src="https://lh3.googleusercontent.com/aida/ADBb0ujwCsowv4h4kuMrzOQjnJdTHOaSFmBI-sUnyxT00fWnSF2rpqr3K4KBzzonJ0SZTDEL3sQ0XDruZxBGFK9r_uZIL5M9-oYHWAzCRO_0UQSJi4SPeHwaAtbs2KmuT6P9ocuklLj1gsbQit2T-8jsOyhIXVRLzFO_qcyU2QlGAhxMo-S5KIRCCFxIZu4uO4XfuZ1d2Az5ZTI8Tf0qxylYsQn-56V37iKH5P4RY_mMIIKUh6MgRLh7-KkBFyyRCfV3NouHrBBrhk3jDQ">
                     <div class="flex flex-col">
                         <span class="text-lg md:text-xl font-black font-manrope leading-tight">LIFE CIRCLE</span>
                         <span class="text-[8px] md:text-[10px] text-white/50 tracking-widest uppercase">Reg: C-204398</span>
