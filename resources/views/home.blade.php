@@ -4,7 +4,7 @@
 <!-- Hero Section: Capturing the Heart of Life Circle -->
 <section class="relative min-h-[85vh] flex items-center overflow-hidden">
     <div class="container mx-auto px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 relative z-10">
-        <div class="animate-[fadeInUp_1s_ease-out_forwards]">
+        <div class="animate-[fadeInUp_1s_ease-out_forwards] xl:pr-10">
             <div class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full bg-secondary-container/30 text-secondary font-bold text-[10px] md:text-sm mb-4 md:mb-6">
                 <span class="material-symbols-outlined text-xs md:text-sm">verified</span>
                 Developmental Support Counselor
@@ -13,29 +13,26 @@
                 LIFE CIRCLE
                 <span class="block text-2xl md:text-4xl text-secondary font-medium mt-2">Developmental Support Counselor</span>
             </h1>
-            <p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards]">
-                With 15 years of experience in the Disability Sector and 5 years in the Counseling Sector, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing each child through evidence-based developmental guidance.
+            <p class="text-on-surface-variant text-lg leading-relaxed max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards]">
+                With 15 years in the Disability Sector and 5 years in Counseling, we provide a compassionate sanctuary for children and families. Our holistic approach focuses on nurturing each child through evidence-based developmental guidance.
             </p>
-            <p class="text-on-surface text-lg font-bold mb-8 max-w-xl animate-[fadeInUp_1.2s_ease-out_forwards] font-bengali">
-                ডিজ্যাবিলিটি সেক্টরে ১৫ বছর এবং কাউন্সেলিং সেক্টরে ৫ বছরের বাস্তব অভিজ্ঞতার আলোকে আমরা শিশু ও তাদের পরিবারের জন্য একটি নিরাপদ পরিবেশ নিশ্চিত করি। আমাদের মূল লক্ষ্য হলো প্রতিটি শিশুর সঠিক মূল্যায়ন এবং দিকনির্দেশনার মাধ্যমে তাদের বিকাশ ত্বরান্বিত করা।
-            </p>
-            <div class="flex flex-wrap gap-2 md:gap-4 mb-8 md:mb-12 animate-[fadeInUp_1.4s_ease-out_forwards]">
-                <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-4 md:px-8 py-2 md:py-4 rounded-full font-bold text-[11px] md:text-lg whisper-shadow hover:brightness-110 transition-all font-bengali">DMC কোর্সে ভর্তি হোন <span class="hidden md:inline">(Enroll Now)</span></a>
-                <a href="{{ route('appointment') }}" class="btn-interact bg-secondary text-white px-4 md:px-8 py-2 md:py-4 rounded-full font-bold text-[11px] md:text-lg whisper-shadow hover:brightness-110 transition-all">Book <span class="hidden md:inline">Appointment</span> (সেশন বুকিং)</a>
-            </div>
         </div>
-        <div class="relative animate-[fadeInRight_1.2s_ease-out_forwards] flex justify-center">
+        <div class="relative animate-[fadeInRight_1.2s_ease-out_forwards] flex justify-center mt-10 lg:mt-0">
             <div class="absolute -top-10 -right-10 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl animate-[float_6s_infinite_ease-in-out]"></div>
             <div class="relative w-full max-w-md bg-white p-4 rounded-[2.5rem] whisper-shadow transform rotate-2 hover:rotate-0 transition-transform duration-700">
                 <div class="rounded-[2rem] overflow-hidden aspect-[4/5] bg-surface-container">
                     <img alt="Lead Counselor" class="w-full h-full object-cover" src="{{ asset('Sharmin Mujahid1.png') }}">
                 </div>
             </div>
-            <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary p-4 md:p-6 rounded-2xl whisper-shadow max-w-[240px] md:max-w-xs text-white animate-[float_5s_infinite_ease-in-out_1s]">
-                <div class="flex items-center gap-3 md:gap-4">
-                    <span class="material-symbols-outlined text-secondary-container text-2xl md:text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
-                    <p class="text-[10px] md:text-sm font-medium leading-tight text-white/90">15 years in the Disability Sector and 5 years in the Counseling Sector.</p>
+            <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary p-4 md:p-6 rounded-2xl whisper-shadow max-w-[260px] md:max-w-xs text-white animate-[float_5s_infinite_ease-in-out_1s]">
+                <div class="flex items-center gap-3 md:gap-4 mb-2 border-b border-white/20 pb-2">
+                    <span class="material-symbols-outlined text-secondary-container text-2xl md:text-3xl" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+                    <div>
+                        <div class="text-sm md:text-base font-bold text-white">Sharmin Mujahid</div>
+                        <div class="text-[9px] md:text-xs text-secondary-container font-medium mt-1">Developmental Counselor</div>
+                    </div>
                 </div>
+                <p class="text-[10px] md:text-xs font-medium leading-tight text-white/80">Dedicated to transforming lives through holistic emotional and behavioral support.</p>
             </div>
         </div>
     </div>
@@ -49,9 +46,11 @@
                 <img alt="Sharmin Mujahid professional" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" src="{{ asset('Sharmin Mujahid2.png') }}">
             </div>
             <div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-container/20 rounded-full -z-0"></div>
-            <div class="absolute bottom-10 -right-6 md:bottom-20 md:-right-10 px-6 py-4 md:px-8 md:py-6 bg-white rounded-3xl whisper-shadow z-20">
-                <div class="text-2xl md:text-4xl font-black text-primary">15+</div>
-                <div class="text-[10px] md:text-sm font-bold text-secondary uppercase tracking-widest leading-none">Years Experience</div>
+            <div class="absolute bottom-10 -right-6 md:bottom-10 md:-right-10 px-6 py-4 md:px-8 md:py-6 bg-white rounded-3xl whisper-shadow z-20">
+                <div class="flex items-center gap-3">
+                    <div class="text-3xl md:text-4xl font-black text-secondary">15+</div>
+                    <div class="text-[9px] md:text-xs font-bold text-secondary uppercase tracking-widest leading-none">Years<br>Experience</div>
+                </div>
             </div>
         </div>
         <div class="reveal">
@@ -89,32 +88,32 @@
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">fact_check</span>
                 <h3 class="text-xl font-bold text-white mb-2">Developmental Screening & Basic Assessment</h3>
-                <p class="text-white/60 text-sm font-bengali">ডেভেলপমেন্টাল স্ক্রিনিং ও প্রাথমিক মূল্যায়ন</p>
+                <p class="text-white/60 text-sm">Comprehensive evaluation and personalized growth roadmaps for each child.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">family_restroom</span>
                 <h3 class="text-xl font-bold text-white mb-2">Parent Counseling & Guidance</h3>
-                <p class="text-white/60 text-sm font-bengali">প্যারেন্ট কাউন্সেলিং ও গাইডেন্স</p>
+                <p class="text-white/60 text-sm">Expert strategies to navigate the complexities of modern parenting and child development.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">psychology_alt</span>
                 <h3 class="text-xl font-bold text-white mb-2">Behavior Management Support</h3>
-                <p class="text-white/60 text-sm font-bengali">বিহেভিয়ার ম্যানেজমেন্ট সাপোর্ট</p>
+                <p class="text-white/60 text-sm">Practical strategies to address challenging behaviors and foster positive development.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">home</span>
                 <h3 class="text-xl font-bold text-white mb-2">Home-based Training Plans</h3>
-                <p class="text-white/60 text-sm font-bengali">বাসায় করার জন্য ট্রেনিং প্ল্যান</p>
+                <p class="text-white/60 text-sm">Actionable programs designed for parents to integrate developmental support into daily home routines.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">accessibility_new</span>
                 <h3 class="text-xl font-bold text-white mb-2">Early Intervention Support</h3>
-                <p class="text-white/60 text-sm font-bengali">আর্লি ইন্টারভেনশন সাপোর্ট</p>
+                <p class="text-white/60 text-sm">Proactive care strategies to address developmental delays at the earliest crucial stages.</p>
             </div>
             <div class="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all group reveal">
                 <span class="material-symbols-outlined text-secondary-container text-4xl mb-4">assignment_ind</span>
                 <h3 class="text-xl font-bold text-white mb-2">Individualized Support Plan (ISP)</h3>
-                <p class="text-white/60 text-sm font-bengali">ইন্ডিভিজুয়াল সাপোর্ট প্ল্যান (ISP)</p>
+                <p class="text-white/60 text-sm">A customized, goal-oriented framework tailored specifically to your child's distinct developmental needs.</p>
             </div>
         </div>
     </div>
@@ -161,8 +160,8 @@
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('enroll') }}" class="bg-white text-primary font-bold py-5 px-10 rounded-full text-base lg:text-xl hover:bg-secondary-container hover:text-primary transition-all whisper-shadow font-bengali text-center">
-                        DMC কোর্সে ভর্তি হোন
+                    <a href="{{ route('enroll') }}" class="bg-white text-primary font-bold py-5 px-10 rounded-full text-base lg:text-xl hover:bg-secondary-container hover:text-primary transition-all whisper-shadow text-center">
+                        Enroll Now
                     </a>
                     <a href="{{ route('appointment') }}" class="bg-secondary text-white font-bold py-5 px-10 rounded-full text-base lg:text-xl hover:brightness-110 transition-all whisper-shadow text-center">
                         Book Appointment
