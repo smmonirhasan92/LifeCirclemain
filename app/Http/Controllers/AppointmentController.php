@@ -26,6 +26,7 @@ class AppointmentController extends Controller
         $validated_data = $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'password' => 'required|string|min:4',
             'whatsapp' => 'required|string|max:20',
             'service_type' => 'required|string',
             'transaction_id' => 'required|string|max:100',
@@ -34,16 +35,34 @@ class AppointmentController extends Controller
             'message' => 'nullable|string',
         ]);
 
-        $appointmentData = $validated_data;
-        $appointmentData['whatsapp_number'] = $validated_data['whatsapp'];
-        unset($appointmentData['whatsapp']);
-
         // Standardize WhatsApp Number
-        $wa_number = preg_replace('/[^0-9]/', '', $appointmentData['whatsapp_number']);
-        if (strlen($wa_number) === 11 && str_starts_with($wa_number, '01')) {
+        $wa_number = preg_replace('/[^0-9]/', '', $request->whatsapp);
+        if (strlen($wa_number) == 11 && strpos($wa_number, '01') === 0) {
             $wa_number = '88' . $wa_number;
         }
+
+        // Unified User Account Logic (WhatsApp-based)
+        $user = \App\Models\User::where('whatsapp_number', $wa_number)->first();
+        
+        if (!$user) {
+            $user = \App\Models\User::firstOrCreate(
+                ['email' => $validated_data['email']],
+                [
+                    'name' => $validated_data['full_name'],
+                    'whatsapp_number' => $wa_number,
+                    'password' => \Illuminate\Support\Facades\Hash::make($validated_data['password']),
+                    'role' => 'client'
+                ]
+            );
+        }
+
+        // Auto-login the user
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        $appointmentData = $validated_data;
+        $appointmentData['user_id'] = $user->id;
         $appointmentData['whatsapp_number'] = $wa_number;
+        unset($appointmentData['whatsapp'], $appointmentData['password']);
 
         try {
             $appointment = Appointment::create($appointmentData);
@@ -78,12 +97,24 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::latest()->paginate(15);
-        $total_count = Appointment::count();
-        $pending_count = Appointment::where('status', 'pending')->count();
-        $confirmed_count = Appointment::where('status', 'confirmed')->count();
+        $appointments = Appointment::whereNotIn('status', ['completed', 'canceled'])->latest()->paginate(15);
+        $stats = (object)[
+            'total' => Appointment::count(),
+            'pending' => Appointment::where('status', 'pending')->count(),
+            'active' => Appointment::where('status', 'active')->count(),
+        ];
 
-        return view('admin.appointments', compact('appointments', 'total_count', 'pending_count', 'confirmed_count'));
+        return view('admin.appointments', compact('appointments', 'stats'));
+    }
+
+    /**
+     * Display completed appointments (Archive).
+     */
+    public function archive()
+    {
+        $appointments = Appointment::where('status', 'completed')->latest()->paginate(15);
+        $title = 'Appointment Archive';
+        return view('admin.archive_appointments', compact('appointments', 'title'));
     }
 
     /**
@@ -92,22 +123,43 @@ class AppointmentController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,confirmed,completed,cancelled',
+            'status' => 'required|in:pending,active,completed,canceled',
             'payment_amount' => 'nullable|numeric',
         ]);
 
         $appointment = Appointment::findOrFail($id);
+        
+        if ($request->status === 'canceled') {
+            $appointment->delete();
+            return redirect()->back()->with('success', 'অ্যাপয়েন্টমেন্টটি ডিলিট করা হয়েছে।');
+        }
+
         $appointment->status = $request->status;
         
         if ($request->has('payment_amount')) {
             $appointment->payment_amount = $request->payment_amount;
         }
         
-        // Handle checkbox: if present, it's true, else false.
         $appointment->is_paid = $request->has('is_paid') ? true : false;
-        
         $appointment->save();
 
-        return redirect()->back()->with('success', 'Appointment details updated successfully.');
+        $msg = $request->status === 'completed' ? 'অ্যাপয়েন্টমেন্ট সফলভাবে সম্পন্ন হয়েছে।' : 'Appointment updated.';
+        return redirect()->back()->with('success', $msg);
+    }
+
+    /**
+     * Update advanced appointment details (Notes, Payment) via Admin.
+     */
+    public function updateAdvancedDetails(Request $request, $id)
+    {
+        $request->validate([
+            'payment_amount' => 'nullable|numeric',
+            'admin_notes' => 'nullable|string',
+        ]);
+
+        $appointment = Appointment::findOrFail($id);
+        $appointment->update($request->only(['payment_amount', 'admin_notes']));
+
+        return redirect()->back()->with('success', 'Advanced appointment details and payment tracking updated successfully.');
     }
 }

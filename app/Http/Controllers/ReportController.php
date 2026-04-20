@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Enrollment;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -17,7 +18,34 @@ class ReportController extends Controller
         
         $totalSessions = Appointment::where('status', 'completed')->count();
         $totalEnrollments = Enrollment::count();
-        $activeClients = Appointment::select('whatsapp_number')->distinct()->count();
+        
+        // Detailed Revenue Matrix
+        $revenueByService = [];
+        
+        // 1. Enrollment Revenue (DMC Course)
+        $enrollmentRevenue = Enrollment::where('is_paid', true)->sum('payment_amount');
+        if ($enrollmentRevenue > 0) {
+            $revenueByService['DMC Certificate Course'] = $enrollmentRevenue;
+        }
+
+        // 2. Appointment Revenue by Service Type
+        $appointmentRevenues = Appointment::where('is_paid', true)
+                                ->select('service_type', DB::raw('SUM(payment_amount) as total'))
+                                ->groupBy('service_type')
+                                ->get();
+
+        foreach ($appointmentRevenues as $ar) {
+            $revenueByService[$ar->service_type] = $ar->total;
+        }
+
+        $stats = [
+            'total_revenue' => $totalRevenue,
+            'verified_paid' => $totalRevenue,
+            'pending_dues' => Enrollment::where('is_paid', false)->count() + Appointment::where('is_paid', false)->count(),
+            'enrollment_count' => $totalEnrollments,
+            'appointment_count' => Appointment::count(),
+            'revenue_by_service' => $revenueByService
+        ];
 
         // Recent successful payments
         $recentPayments = Appointment::where('is_paid', true)
@@ -25,24 +53,66 @@ class ReportController extends Controller
                             ->take(5)
                             ->get();
 
+        // Unique clients count from both tables + users
+        $clients = $this->aggregateClients();
+        $clientsCount = count($clients);
+
         return view('admin.reports', compact(
-            'totalRevenue', 'totalSessions', 'totalEnrollments', 'activeClients', 'recentPayments'
+            'stats', 'totalSessions', 'totalEnrollments', 'recentPayments', 'clients'
         ));
     }
 
     public function clients()
     {
-        // Group appointments by whatsapp_number to find unique clients
-        // and count their completed sessions
-        $clients = Appointment::select('full_name', 'email', 'whatsapp_number', 
-            DB::raw('COUNT(id) as total_appointments'),
-            DB::raw('SUM(CASE WHEN status = "completed" THEN 1 ELSE 0 END) as completed_sessions'),
-            DB::raw('MAX(appointment_date) as last_appointment')
-        )
-        ->groupBy('whatsapp_number', 'email', 'full_name') // Grouping by all selected non-aggregate columns
-        ->orderBy('last_appointment', 'desc')
-        ->get();
-
+        $clients = $this->aggregateClients();
         return view('admin.clients', compact('clients'));
+    }
+
+    /**
+     * Helper to unify clients from Users, Enrollments, and Appointments.
+     */
+    private function aggregateClients()
+    {
+        // Get all identities from three sources
+        $u1 = DB::table('users')->select('whatsapp_number', 'name', 'email', 'role', 'created_at');
+        $u2 = DB::table('enrollments')->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
+        $u3 = DB::table('appointments')->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
+
+        $combined = $u1->union($u2)->union($u3);
+
+        return DB::table(DB::raw("({$combined->toSql()}) as combined"))
+                ->mergeBindings($combined)
+                ->whereNotNull('whatsapp_number')
+                ->where('whatsapp_number', '!=', '')
+                ->select('whatsapp_number', 'name', 'email', 'role', DB::raw('MAX(created_at) as last_interaction'))
+                ->groupBy('whatsapp_number', 'name', 'email', 'role')
+                ->orderBy('last_interaction', 'desc')
+                ->get();
+    }
+
+    public function clientProfile($whatsapp)
+    {
+        // Fetch all enrollments and appointments for this specific client
+        $enrollments = Enrollment::where('whatsapp_number', $whatsapp)->orderBy('created_at', 'desc')->get();
+        $appointments = Appointment::where('whatsapp_number', $whatsapp)->orderBy('created_at', 'desc')->get();
+        
+        $client = $enrollments->first() ?? $appointments->first();
+
+        if (!$client) {
+            // Check users table if legacy records missing
+            $user = DB::table('users')->where('whatsapp_number', $whatsapp)->first();
+            if ($user) {
+                // Mock a client object for the profile view
+                $client = (object)[
+                    'whatsapp_number' => $user->whatsapp_number,
+                    'full_name' => $user->name,
+                    'email' => $user->email,
+                ];
+            } else {
+                return redirect()->route('admin.clients')->with('error', 'Client not found.');
+            }
+        }
+
+        return view('admin.client.show', compact('client', 'enrollments', 'appointments'));
     }
 }

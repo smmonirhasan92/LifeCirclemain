@@ -7,10 +7,25 @@
             <span class="text-[7px] md:text-[10px] text-secondary font-bold tracking-tighter uppercase">Counseling Services</span>
         </div>
     </div>
-    <div class="hidden md:flex items-center gap-10 font-manrope font-bold tracking-tight">
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}#about">About</a>
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}#services">Services</a>
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}#contact">Contact</a>
+    <div class="hidden md:flex items-center gap-8 font-manrope font-bold tracking-tight">
+        <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="{{ route('home') }}#about">About</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="{{ route('home') }}#services">Services</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="{{ route('home') }}#contact">Contact</a>
+        
+        @auth
+            @if(Auth::user()->role === 'admin')
+                <a class="text-secondary bg-secondary/5 px-4 py-2 rounded-full hover:bg-secondary/10 transition-all text-sm" href="{{ route('admin.list') }}">Admin Portal</a>
+            @else
+                <a class="text-secondary bg-secondary/5 px-4 py-2 rounded-full hover:bg-secondary/10 transition-all text-sm" href="{{ route('dashboard') }}">My Dashboard</a>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="text-red-400 hover:text-red-600 transition-colors text-xs uppercase tracking-widest">Logout</button>
+                </form>
+            @endif
+        @else
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-bold" href="{{ route('login') }}">Login</a>
+            <a class="text-secondary bg-secondary/5 px-4 py-2 rounded-full hover:bg-secondary/10 transition-all text-sm font-bold" href="{{ route('register') }}">Register</a>
+        @endauth
     </div>
     <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-3 md:px-6 py-1.5 md:py-2.5 rounded-full font-manrope font-bold hover:brightness-110 shadow-lg text-[9px] md:text-base whitespace-nowrap font-bengali">
         DMC কোর্সে ভর্তি হোন

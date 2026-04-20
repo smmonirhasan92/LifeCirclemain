@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
+        'user_id',
         'full_name',
         'email',
         'whatsapp_number',
@@ -19,5 +27,11 @@ class Appointment extends Model
         'status',
         'payment_amount',
         'is_paid',
+        'admin_notes',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

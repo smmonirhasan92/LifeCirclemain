@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Enrollment;
+use App\Models\Setting;
 use Illuminate\Support\Facades\App;
 
 class EnrollmentController extends Controller
@@ -14,7 +15,8 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        return view('enroll');
+        $early_bird_deadline = Setting::get('early_bird_deadline');
+        return view('enroll', compact('early_bird_deadline'));
     }
 
     /**
@@ -28,6 +30,7 @@ class EnrollmentController extends Controller
         $validated_data = $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'password' => 'required|string|min:4',
             'whatsapp' => 'required|string|max:20',
             'service_type' => 'required|string',
             'transaction_id' => 'required|string|max:100',
@@ -35,15 +38,38 @@ class EnrollmentController extends Controller
         ]);
 
         $enrollmentData = $validated_data;
-        $enrollmentData['whatsapp_number'] = $validated_data['whatsapp'];
-        unset($enrollmentData['whatsapp']);
 
         // Standardize WhatsApp Number (Add 88 prefix if needed)
-        $wa_number = preg_replace('/[^0-9]/', '', $enrollmentData['whatsapp_number']);
-        if (strlen($wa_number) === 11 && str_starts_with($wa_number, '01')) {
+        $wa_number = preg_replace('/[^0-9]/', '', $enrollmentData['whatsapp']);
+        if (strlen($wa_number) == 11 && strpos($wa_number, '01') === 0) {
             $wa_number = '88' . $wa_number;
         }
+
+        // Unified User Account Logic (WhatsApp-based)
+        $user = \App\Models\User::where('whatsapp_number', $wa_number)->first();
+        
+        if (!$user) {
+            $user = \App\Models\User::firstOrCreate(
+                ['email' => $validated_data['email']],
+                [
+                    'name' => $validated_data['full_name'],
+                    'whatsapp_number' => $wa_number,
+                    'password' => \Illuminate\Support\Facades\Hash::make($validated_data['password']),
+                    'role' => 'client'
+                ]
+            );
+        }
+
+        // Auto-login the user
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        // Map and Clean Data for Enrollment Model
+        $enrollmentData = $validated_data;
+        $enrollmentData['user_id'] = $user->id;
         $enrollmentData['whatsapp_number'] = $wa_number;
+        
+        // Remove non-database fields
+        unset($enrollmentData['whatsapp'], $enrollmentData['password']);
 
         try {
             // Humanized Logic: Save lead to database before redirection
@@ -77,17 +103,28 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::latest()->paginate(15);
+        $enrollments = Enrollment::whereNotIn('status', ['completed', 'canceled'])->latest()->paginate(15);
         
         $stats = (object)[
             'total' => Enrollment::count(),
             'pending' => Enrollment::where('status', 'pending')->count(),
-            'contacted' => Enrollment::where('status', 'contacted')->count(),
-            'enrolled' => Enrollment::where('status', 'enrolled')->count(),
+            'active' => Enrollment::where('status', 'active')->count(),
             'completed' => Enrollment::where('status', 'completed')->count(),
         ];
 
-        return view('admin.list', compact('enrollments', 'stats'));
+        $early_bird_deadline = Setting::get('early_bird_deadline');
+
+        return view('admin.list', compact('enrollments', 'stats', 'early_bird_deadline'));
+    }
+
+    /**
+     * Display completed enrollments (Archive).
+     */
+    public function archive()
+    {
+        $enrollments = Enrollment::where('status', 'completed')->latest()->paginate(15);
+        $title = 'Enrollment Archive';
+        return view('admin.archive', compact('enrollments', 'title'));
     }
 
     /**
@@ -96,22 +133,46 @@ class EnrollmentController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,contacted,enrolled,completed',
+            'status' => 'required|in:pending,active,completed,canceled',
             'payment_amount' => 'nullable|numeric',
         ]);
 
         $enrollment = Enrollment::findOrFail($id);
+        
+        if ($request->status === 'canceled') {
+            $enrollment->delete();
+            return redirect()->back()->with('success', 'ব্যর্থ আবেদনটি সফলভাবে ডিলিট করা হয়েছে।');
+        }
+
         $enrollment->status = $request->status;
         
         if ($request->has('payment_amount')) {
             $enrollment->payment_amount = $request->payment_amount;
         }
         
-        // Handle checkbox: if present, it's true, else false.
         $enrollment->is_paid = $request->has('is_paid') ? true : false;
-        
         $enrollment->save();
 
-        return redirect()->back()->with('success', 'Enrollment details updated successfully.');
+        $msg = $request->status === 'completed' ? 'আবেদনটি সফলভাবে শেষ করা হয়েছে এবং আর্কাইভে সানো হয়েছে।' : 'Status updated successfully.';
+        return redirect()->back()->with('success', $msg);
+    }
+
+    /**
+     * Update advanced course details (Duration, Dates, Notes) via Admin.
+     */
+    public function updateAdvancedDetails(Request $request, $id)
+    {
+        $request->validate([
+            'course_duration' => 'nullable|string|max:100',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'payment_amount' => 'nullable|numeric',
+            'admin_notes' => 'nullable|string',
+        ]);
+
+        $enrollment = Enrollment::findOrFail($id);
+        $enrollment->update($request->only(['course_duration', 'start_date', 'end_date', 'payment_amount', 'admin_notes']));
+
+        return redirect()->back()->with('success', 'Advanced course details and payment tracking updated successfully.');
     }
 }

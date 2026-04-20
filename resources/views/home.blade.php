@@ -129,6 +129,39 @@
                 <p class="text-on-surface-variant text-lg lg:text-xl max-w-3xl font-bengali">
                     ৩ মাস ব্যাপী এই সার্টিফিকেট কোর্সটিতে অংশ নিয়ে স্পেশাল চাইল্ড ম্যানেজমেন্ট এবং ডেভেলপমেন্টাল ডিসঅর্ডার সম্পর্কে বাস্তবমুখী এবং কার্যকরী জ্ঞান অর্জন করুন। 
                 </p>
+
+                <!-- Dynamic Countdown on Home Page -->
+                @if(isset($early_bird_deadline) && $early_bird_deadline)
+                <div id="home-countdown" class="bg-white/80 backdrop-blur-md px-8 py-4 rounded-2xl whisper-shadow border-t-4 border-secondary animate-fade-in-up hidden mt-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="flex items-center gap-2 text-secondary font-bold uppercase tracking-widest text-[10px]">
+                            <span class="material-symbols-outlined text-xs animate-pulse">timer</span>
+                            Early Bird Offer Ends In:
+                        </div>
+                        <div class="flex gap-4 font-manrope">
+                            <div class="flex flex-col items-center">
+                                <span id="h-days" class="text-2xl font-black text-primary">00</span>
+                                <span class="text-[8px] text-outline font-bold uppercase tracking-widest">Days</span>
+                            </div>
+                            <div class="text-2xl font-black text-primary/20">:</div>
+                            <div class="flex flex-col items-center">
+                                <span id="h-hours" class="text-2xl font-black text-primary">00</span>
+                                <span class="text-[8px] text-outline font-bold uppercase tracking-widest">Hours</span>
+                            </div>
+                            <div class="text-2xl font-black text-primary/20">:</div>
+                            <div class="flex flex-col items-center">
+                                <span id="h-minutes" class="text-2xl font-black text-primary">00</span>
+                                <span class="text-[8px] text-outline font-bold uppercase tracking-widest">Mins</span>
+                            </div>
+                            <div class="text-2xl font-black text-primary/20">:</div>
+                            <div class="flex flex-col items-center">
+                                <span id="h-seconds" class="text-2xl font-black text-secondary">00</span>
+                                <span class="text-[8px] text-outline font-bold uppercase tracking-widest">Secs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <div class="mt-4">
                     <a href="{{ route('enroll') }}" class="btn-interact bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg whisper-shadow hover:brightness-110 transition-all font-bengali">
                         DMC কোর্সে ভর্তি হোন (Enroll Now)
@@ -184,4 +217,46 @@
         50% { transform: translateY(-15px); }
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(isset($early_bird_deadline) && $early_bird_deadline)
+        const deadlineStr = "{{ $early_bird_deadline }}";
+        const countdownDate = new Date(deadlineStr).getTime();
+        const countdownCard = document.getElementById('home-countdown');
+        
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            if (distance < 0) {
+                if(countdownCard) countdownCard.classList.add('hidden');
+                return;
+            }
+
+            if(countdownCard) countdownCard.classList.remove('hidden');
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const dEl = document.getElementById('h-days');
+            const hEl = document.getElementById('h-hours');
+            const mEl = document.getElementById('h-minutes');
+            const sEl = document.getElementById('h-seconds');
+
+            if(dEl) dEl.innerText = days.toString().padStart(2, '0');
+            if(hEl) hEl.innerText = hours.toString().padStart(2, '0');
+            if(mEl) mEl.innerText = minutes.toString().padStart(2, '0');
+            if(sEl) sEl.innerText = seconds.toString().padStart(2, '0');
+        };
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        @endif
+    });
+</script>
 @endpush

@@ -18,15 +18,11 @@
         <form method="POST" action="{{ route('admin.authenticate') }}" class="space-y-6">
             @csrf
             <div>
-                <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">Email Address</label>
-                <input type="email" name="email" value="{{ old('email') }}" class="w-full bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all @error('email') border-red-500 @enderror" placeholder="admin@lifecircle.com" required autofocus>
-                @error('email')
+                <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">Password</label>
+                <input type="password" name="password" class="w-full bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all @error('password') border-red-500 @enderror" placeholder="Enter password" required autofocus>
+                @error('password')
                     <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
                 @enderror
-            </div>
-            <div>
-                <label class="text-xs font-bold uppercase tracking-widest text-outline ml-1">Password</label>
-                <input type="password" name="password" class="w-full bg-surface-container-high border-none rounded-sm px-4 py-3 focus:ring-0 focus:bg-white focus:border-b-2 focus:border-primary transition-all" placeholder="Enter password" required>
             </div>
             <div class="flex items-center gap-2">
                 <input type="checkbox" name="remember" id="remember" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/20 cursor-pointer">
