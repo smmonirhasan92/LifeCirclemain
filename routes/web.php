@@ -85,3 +85,26 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/settings/update', [\App\Http\Controllers\UserDashboardController::class, 'updatePassword'])->name('user.password.update');
     Route::post('/logout', [\App\Http\Controllers\AdminAuthController::class, 'logout'])->name('logout'); // Using same logout
 });
+
+// Emergency Administration Route (Delete after logic fix)
+Route::get('/emergency-admin-fix', function () {
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    
+    $user = \App\Models\User::where('email', 'admin@lifecircle.com')->first();
+    if ($user) {
+        $user->password = \Illuminate\Support\Facades\Hash::make('admin123');
+        $user->role = 'admin';
+        $user->save();
+        return "<h1>SUCCESS: Cache Cleared and Admin Password Reset to 'admin123'!</h1><p><a href='/admin/login'>Go to Login</a></p>";
+    }
+    
+    \App\Models\User::create([
+        'name' => 'Admin',
+        'email' => 'admin@lifecircle.com',
+        'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
+        'role' => 'admin'
+    ]);
+    return "<h1>SUCCESS: New Admin Created with password 'admin123' and Cache Cleared!</h1><p><a href='/admin/login'>Go to Login</a></p>";
+});
