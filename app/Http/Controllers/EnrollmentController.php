@@ -63,17 +63,19 @@ class EnrollmentController extends Controller
         // Auto-login the user
         \Illuminate\Support\Facades\Auth::login($user);
 
-        // Map and Clean Data for Enrollment Model
-        $enrollmentData = $validated_data;
-        $enrollmentData['user_id'] = $user->id;
-        $enrollmentData['whatsapp_number'] = $wa_number;
-        
-        // Remove non-database fields
-        unset($enrollmentData['whatsapp'], $enrollmentData['password']);
-
         try {
             // Humanized Logic: Save lead to database before redirection
-            $enrollment = Enrollment::create($enrollmentData);
+            $enrollment = new Enrollment();
+            $enrollment->user_id = $user->id;
+            $enrollment->full_name = $validated_data['full_name'];
+            $enrollment->email = $validated_data['email'];
+            $enrollment->whatsapp_number = $wa_number;
+            $enrollment->service_type = $validated_data['service_type'];
+            $enrollment->transaction_id = $validated_data['transaction_id'];
+            $enrollment->message = $validated_data['message'] ?? null;
+            $enrollment->status = 'pending';
+            $enrollment->is_paid = false;
+            $enrollment->save();
 
             // Professional WhatsApp Redirection Logic
             $mam_number = '8801716437859';
@@ -94,7 +96,8 @@ class EnrollmentController extends Controller
 
             return redirect()->away($whatsapp_url);
         } catch (\Exception $e) {
-            return back()->withInput()->withErrors(['message' => 'দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।']);
+            \Illuminate\Support\Facades\Log::error('Enrollment Storage Failure: ' . $e->getMessage());
+            return back()->withInput()->withErrors(['message' => 'দুঃখিত, তথ্য সংরক্ষণে সমস্যা হয়েছে। (Error: ' . $e->getMessage() . ')']);
         }
     }
 

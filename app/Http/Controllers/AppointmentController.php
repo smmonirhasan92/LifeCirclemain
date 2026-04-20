@@ -59,13 +59,20 @@ class AppointmentController extends Controller
         // Auto-login the user
         \Illuminate\Support\Facades\Auth::login($user);
 
-        $appointmentData = $validated_data;
-        $appointmentData['user_id'] = $user->id;
-        $appointmentData['whatsapp_number'] = $wa_number;
-        unset($appointmentData['whatsapp'], $appointmentData['password']);
-
         try {
-            $appointment = Appointment::create($appointmentData);
+            $appointment = new Appointment();
+            $appointment->user_id = $user->id;
+            $appointment->full_name = $validated_data['full_name'];
+            $appointment->email = $validated_data['email'];
+            $appointment->whatsapp_number = $wa_number;
+            $appointment->service_type = $validated_data['service_type'];
+            $appointment->transaction_id = $validated_data['transaction_id'];
+            $appointment->appointment_date = $validated_data['appointment_date'];
+            $appointment->appointment_time = $validated_data['appointment_time'] ?? null;
+            $appointment->message = $validated_data['message'] ?? null;
+            $appointment->status = 'pending';
+            $appointment->is_paid = false;
+            $appointment->save();
 
             // WhatsApp Redirection Logic for Appointment
             $mam_number = '8801716437859';
@@ -88,7 +95,8 @@ class AppointmentController extends Controller
 
             return redirect()->away($whatsapp_url);
         } catch (\Exception $e) {
-            return back()->withInput()->withErrors(['message' => 'দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।']);
+            \Illuminate\Support\Facades\Log::error('Appointment Storage Failure: ' . $e->getMessage());
+            return back()->withInput()->withErrors(['message' => 'দুঃখিত, তথ্য সংরক্ষণে সমস্যা হয়েছে। (Error: ' . $e->getMessage() . ')']);
         }
     }
 
