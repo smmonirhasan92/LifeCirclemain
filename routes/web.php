@@ -108,3 +108,30 @@ Route::get('/emergency-admin-fix', function () {
     ]);
     return "<h1>SUCCESS: New Admin Created with password 'admin123' and Cache Cleared!</h1><p><a href='/admin/login'>Go to Login</a></p>";
 });
+
+// Diagnostic Route to verify DB connection
+Route::get('/debug-db', function () {
+    try {
+        $db = \Illuminate\Support\Facades\DB::connection()->getDatabaseName();
+        $users = \App\Models\User::count();
+        $enrollments = \App\Models\Enrollment::count();
+        $appointments = \App\Models\Appointment::count();
+        
+        return response()->json([
+            'status' => 'Connected',
+            'current_database' => $db,
+            'counts' => [
+                'users' => $users,
+                'enrollments' => $enrollments,
+                'appointments' => $appointments
+            ],
+            'config_database' => config('database.connections.mysql.database'),
+            'tip' => 'Ensure database matches your intended lifecirc_fainal database.'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'Error',
+            'message' => $e->getMessage()
+        ]);
+    }
+});
