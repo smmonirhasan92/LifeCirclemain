@@ -55,7 +55,6 @@ class ReportController extends Controller
 
         // Unique clients count from both tables + users
         $clients = $this->aggregateClients();
-        $clientsCount = count($clients);
 
         return view('admin.reports', compact(
             'stats', 'totalSessions', 'totalEnrollments', 'recentPayments', 'clients'
@@ -70,18 +69,22 @@ class ReportController extends Controller
 
     /**
      * Helper to unify clients from Users, Enrollments, and Appointments.
+     * Rewritten to use safer fromSub() to prevent environment-specific driver errors.
      */
     private function aggregateClients()
     {
-        // Get all identities from three sources
         $u1 = DB::table('users')->select('whatsapp_number', 'name', 'email', 'role', 'created_at');
-        $u2 = DB::table('enrollments')->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
-        $u3 = DB::table('appointments')->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
+        
+        $u2 = DB::table('enrollments')
+                ->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
+        
+        $u3 = DB::table('appointments')
+                ->select('whatsapp_number', 'full_name as name', 'email', DB::raw("'client' as role"), 'created_at');
 
-        $combined = $u1->union($u2)->union($u3);
+        $combinedQuery = $u1->union($u2)->union($u3);
 
-        return DB::table(DB::raw("({$combined->toSql()}) as combined"))
-                ->mergeBindings($combined)
+        return DB::table('combined')
+                ->fromSub($combinedQuery, 'combined')
                 ->whereNotNull('whatsapp_number')
                 ->where('whatsapp_number', '!=', '')
                 ->select('whatsapp_number', 'name', 'email', 'role', DB::raw('MAX(created_at) as last_interaction'))
@@ -92,17 +95,14 @@ class ReportController extends Controller
 
     public function clientProfile($whatsapp)
     {
-        // Fetch all enrollments and appointments for this specific client
         $enrollments = Enrollment::where('whatsapp_number', $whatsapp)->orderBy('created_at', 'desc')->get();
         $appointments = Appointment::where('whatsapp_number', $whatsapp)->orderBy('created_at', 'desc')->get();
         
         $client = $enrollments->first() ?? $appointments->first();
 
         if (!$client) {
-            // Check users table if legacy records missing
             $user = DB::table('users')->where('whatsapp_number', $whatsapp)->first();
             if ($user) {
-                // Mock a client object for the profile view
                 $client = (object)[
                     'whatsapp_number' => $user->whatsapp_number,
                     'full_name' => $user->name,
